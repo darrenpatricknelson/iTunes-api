@@ -39,10 +39,6 @@ const media = [
   {
     title: 'eBook',
     value: 'ebook'
-  },
-  {
-    title: 'All',
-    value: 'all'
   }
 ];
 
@@ -50,24 +46,54 @@ function SearchForm(props) {
   const { inputForm, optionsForm } = props.values;
   const { submitForm, setInputForm, setOptionsForm } = props.methods;
 
+  // error/validation
+  const [inputError, setInputError] = useState('');
+  const [selectError, setSelectError] = useState('');
+
+  // handle submit
+  const handleSubmit = () => {
+    setInputError('');
+    setSelectError('');
+
+    if (!inputForm) {
+      setInputError('Please enter a valid search term');
+      return;
+    }
+
+    if (!optionsForm) {
+      setSelectError('Please select a media type');
+      return;
+    }
+
+    // clear input fields
+    setInputForm('');
+    setOptionsForm('');
+    submitForm();
+  };
+
   return (
     <Form>
+      {/* input field for the name of the artist, actor or author */}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control
-          type="email"
+          type="text"
           placeholder="Enter your search item"
           value={inputForm}
-          onChange={(e) => setInputForm(e.target.value)}
+          onChange={(e) => {
+            setInputForm(e.target.value);
+          }}
         />
       </Form.Group>
-
+      <p className="errorMessage">{inputError}</p>
       <Form.Select
         aria-label="Default select example"
         className="options"
         value={optionsForm}
         onChange={(e) => setOptionsForm(e.target.value)}
       >
-        <option>Select the media</option>
+        <option key="All" value="all">
+          Select the media
+        </option>
         {media.map((val) => {
           return (
             <option key={val.title} value={val.value}>
@@ -76,8 +102,9 @@ function SearchForm(props) {
           );
         })}
       </Form.Select>
-      <br />
-      <Button variant="success" onClick={submitForm}>
+      <p className="errorMessage">{selectError}</p>
+
+      <Button variant="success" onClick={handleSubmit}>
         Success
       </Button>
     </Form>

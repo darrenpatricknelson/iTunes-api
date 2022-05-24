@@ -21,7 +21,18 @@ Form {
   padding: 10px;
 }
 
+.results {
+  margin: 10px;
+  padding: 10px;
+}
+
 /* favorites */
 .favorites {
   border: 1px solid blue;
+}
+
+/* form error validation */
+.errorMessage {
+  color: red;
+  font-size: 14px;
 }
