@@ -1,0 +1,27 @@
+/* Background of entire app */
+.App {
+  /* width: 100vw;
+  height: 100vh; */
+  display: grid;
+  grid-template-columns: 70vw 25vw;
+  column-gap: 2vw;
+  padding: 20px;
+}
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+/* search form and results */
+.formAndResults {
+  border: 1px solid green;
+}
+
+Form {
+  width: 500px;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* favorites */
+.favorites {
+  border: 1px solid blue;
+}
