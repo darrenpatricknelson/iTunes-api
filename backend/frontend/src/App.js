@@ -4,41 +4,58 @@ import Favorites from './components/Favorites.js';
 import Results from './components/Results.js';
 import SearchForm from './components/SearchForm.js';
 
-function App() {
-  const searchItunesAPI = (url) => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((response) => {
-        // return response;
-        console.log(response);
-      });
-  };
+const searchItunesAPI = async (searchResult, optionsForm) => {
+  const url = `https://itunes.apple.com/search?term=${searchResult}&limit=10&entity=${optionsForm}`;
+  const response = await fetch(url);
 
+  return new Promise(async (resolve, reject) => {
+    if (response.ok) {
+      try {
+        const data = await response.json();
+        resolve(data);
+      } catch (err) {
+        console.log({ err });
+      }
+    }
+
+    reject(response.statusText);
+  });
+};
+
+function App() {
   // create hooks
   const [inputForm, setInputForm] = useState(''); // value from the input field
   const [optionsForm, setOptionsForm] = useState(''); // value from the options field
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [data, setData] = useState(null);
 
   // results
 
-  const [url, setUrl] = useState('');
   const submitForm = () => {
+    setIsLoading(true);
+    setError(false);
     // replace white spaces in the search with '+' and lowercase
     const searchResult = inputForm.replace(/\s/g, '+').toLowerCase();
 
-    // validation (we don't want the media to be empty)
-    if (optionsForm === '') {
-      var optionsResult = 'all';
-    } else {
-      var optionsResult = optionsForm;
-    }
-    // build the url
-    setUrl(`https://itunes.apple.com/search?term=${searchResult}&limit=10`);
+    searchItunesAPI(searchResult, optionsForm).then((data) => {
+      const results = data.results;
+      if (results.length === 0) {
+        setIsLoading(false);
+        setError(true);
+        setErrorMessage(
+          'Failed to load media resource. Check your search input'
+        );
+        return;
+      }
 
-    searchItunesAPI(url);
+      setIsLoading(false);
+      setData(results);
+      setIsLoaded(true);
+    });
   };
 
   return (
@@ -58,9 +75,9 @@ function App() {
           />
         </div>
         <div className="results">
-          {error && <h1>{error}</h1>}
-          {!isLoaded && <p>Search for your favourite media</p>}
-          {isLoaded && <Results values={{ data: data }} />}
+          {error && <h3>{errorMessage}</h3>}
+          {isLoading && <p>Loading...</p>}
+          {isLoaded && <Results values={data} />}
         </div>
       </div>
       <div className="favorites">

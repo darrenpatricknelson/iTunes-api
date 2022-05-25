@@ -14,7 +14,7 @@ const media = [
   },
   {
     title: 'Music',
-    value: 'music'
+    value: 'song'
   },
   {
     title: 'Music video',
