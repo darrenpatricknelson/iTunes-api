@@ -2,17 +2,19 @@
 .App {
   /* width: 100vw;
   height: 100vh; */
-  display: grid;
+  /* 
   grid-template-columns: 70vw 25vw;
-  column-gap: 2vw;
+  column-gap: 2vw; */
+  display: grid;
+  justify-content: center;
   padding: 20px;
 }
-body {
-  overflow: hidden; /* Hide scrollbars */
-}
 /* search form and results */
-.formAndResults {
-  border: 1px solid green;
+.formAndResults,
+.form,
+.results {
+  display: grid;
+  justify-content: center;
 }
 
 Form {
@@ -22,8 +24,30 @@ Form {
 }
 
 .results {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  column-gap: 2vw;
+  row-gap: 2vh;
   margin: 10px;
   padding: 10px;
+}
+
+/* the buttons */
+.loadMediaButton {
+  margin-right: 10px;
+}
+
+.starButton {
+  border: none;
+  background-color: transparent;
+}
+
+.starLogo:hover {
+  color: yellow;
+}
+
+.starLogoTrue {
+  color: yellow;
 }
 
 /* favorites */

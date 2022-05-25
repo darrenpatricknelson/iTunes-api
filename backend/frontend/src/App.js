@@ -80,10 +80,10 @@ function App() {
           {isLoaded && <Results values={data} />}
         </div>
       </div>
-      <div className="favorites">
-        {/* <Favorites /> */}
+      {/* <div className="favorites">
+        <Favorites />
         Favorites
-      </div>
+      </div> */}
     </div>
   );
 }

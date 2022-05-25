@@ -1,38 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 export default function Results(props) {
+  const [favorite, setFavorite] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
+  const addFavourite = (data) => {
+    // console.log(data.artistName);
+    setFavorite((prev) => !prev);
+    setFavorites((prev) => [...prev, data]);
+  };
+
+  useEffect(() => {
+    console.log(favorites);
+  }, [favorites]);
+
   // create values from props
   const results = props.values;
-  // console.log(results);
 
   return (
     <>
-      {results.map((val) => {
-        <Card key="1" style={{ width: '18rem' }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>artistName</Card.Title>
-            <Card.Text>
-              Media: (kind)
-              <br />
-              Genre: (primaryGenreName)
-              <br />
-              Release Date: (releaseDate)
-              <br />
-              Title: (trackCensoredName)
-            </Card.Text>
-            <Button variant="primary">
-              <a
-                href="https://music.apple.com/us/artist/rihanna/63346553?uo=4"
-                target="blank"
+      {results.map((val, idx) => {
+        return (
+          <Card key={idx} style={{ width: '18rem' }}>
+            <Card.Body>
+              <Card.Title>{val.artistName}</Card.Title>
+              <Card.Text>
+                Title: {val.trackCensoredName}
+                <br />
+                Media: {val.kind}
+                <br />
+                Genre: {val.primaryGenreName}
+                <br />
+                Release Date: {val.releaseDate}
+              </Card.Text>
+              <Button
+                className="loadMediaButton"
+                variant="primary"
+                onClick={() => window.open(val.artistViewUrl)}
               >
-                (artistViewUrl)
-              </a>
-            </Button>
-          </Card.Body>
-        </Card>;
+                View artist
+              </Button>
+              <button className="starButton" onClick={() => addFavourite(val)}>
+                {/* {favorite ? (
+                  <i className="fa-solid fa-star starLogo starLogoTrue"></i>
+                ) : (
+                  <i className="fa-solid fa-star starLogo"></i>
+                )} */}
+                <i className="fa-solid fa-star starLogo"></i>
+              </button>
+            </Card.Body>
+          </Card>
+        );
       })}
     </>
   );
