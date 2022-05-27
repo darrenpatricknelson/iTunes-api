@@ -142,3 +142,16 @@ router.delete('/delete/:id', (req, res) => {
 
 // export module
 module.exports = router;
+
+/* 
+! TODO:
+
+Clean up backend 
+Might only need 1 get function
+Don't need to POST, PUT and DELETE...
+Don't need to read any files
+DOn't need to generate random ID
+Clean up comments
+Add Helmet
+
+*/
