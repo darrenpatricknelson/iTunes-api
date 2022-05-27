@@ -8,13 +8,22 @@ export default function Results(props) {
 
   const addFavourite = (data) => {
     // console.log(data.artistName);
-    setFavorite((prev) => !prev);
-    setFavorites((prev) => [...prev, data]);
+    // setFavorite((prev) => !prev);
+    console.log(favorites);
+
+    favorites.forEach((val) => {
+      if (data === val) {
+        console.log('equal');
+      } else {
+        console.log('false');
+        setFavorites((prev) => [...prev, data]);
+      }
+    });
   };
 
-  useEffect(() => {
-    console.log(favorites);
-  }, [favorites]);
+  // useEffect(() => {
+  //   console.log(favorites);
+  // }, [favorites]);
 
   // create values from props
   const results = props.values;
@@ -57,3 +66,27 @@ export default function Results(props) {
     </>
   );
 }
+
+/* 
+! TODO
+Favorites function in parent:
+if array === 0 ...
+for const fav of favs ...
+setFav(prev => [...prev, data])
+
+fav button:
+create comp
+control state
+true = yellow 
+false = black
+run function in parent
+export default funct (prop) => {
+  const val = props.val
+  const [state, setState] = useState(false)
+  const handleClick = () => {
+    setState(prev => !prev)
+    parentFunction(val)
+  }
+}
+
+*/

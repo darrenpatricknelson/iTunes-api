@@ -105,7 +105,7 @@ function SearchForm(props) {
       <p className="errorMessage">{selectError}</p>
 
       <Button variant="success" onClick={handleSubmit}>
-        Success
+        Search
       </Button>
     </Form>
   );

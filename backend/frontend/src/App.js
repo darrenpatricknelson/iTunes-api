@@ -4,10 +4,8 @@ import Favorites from './components/Favorites.js';
 import Results from './components/Results.js';
 import SearchForm from './components/SearchForm.js';
 
-const searchItunesAPI = async (searchResult, optionsForm) => {
-  const url = `https://itunes.apple.com/search?term=${searchResult}&limit=10&entity=${optionsForm}`;
-  const response = await fetch(url);
-
+export const searchItunesAPI = async (searchResult, optionsForm) => {
+  const response = await fetch(`/api/${searchResult}&${optionsForm}`);
   return new Promise(async (resolve, reject) => {
     if (response.ok) {
       try {
@@ -37,13 +35,17 @@ function App() {
 
   const submitForm = () => {
     setIsLoading(true);
+    setIsLoaded(false);
     setError(false);
+    // setData(null);
+
     // replace white spaces in the search with '+' and lowercase
     const searchResult = inputForm.replace(/\s/g, '+').toLowerCase();
 
     searchItunesAPI(searchResult, optionsForm).then((data) => {
-      const results = data.results;
-      if (results.length === 0) {
+      // console.log(data);
+      const payload = data.payload;
+      if (!data.success) {
         setIsLoading(false);
         setError(true);
         setErrorMessage(
@@ -53,7 +55,7 @@ function App() {
       }
 
       setIsLoading(false);
-      setData(results);
+      setData(payload);
       setIsLoaded(true);
     });
   };

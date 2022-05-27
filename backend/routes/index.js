@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
+const axios = require('axios');
 
 /* 
 ! If needed:
@@ -32,13 +33,42 @@ const writeFile = (content) => {
 */
 
 // GET (read)
-router.get('/', (req, res) => {
+router.get('/:term&:media', async (req, res) => {
   //   send a response to the user
-  res.json({
-    message: 'Here is your content',
-    success: true,
-    data
-  });
+  const term = req.params.term;
+  const media = req.params.media;
+
+  const url = `https://itunes.apple.com/search?term=${term}&limit=25&entity=${media}`;
+  const response = await axios.get(url);
+  return new Promise(async (resolve, reject) => {
+    if (response.statusText) {
+      try {
+        const data = await response.data;
+
+        resolve(data);
+      } catch (err) {
+        console.log({ err });
+      }
+    }
+
+    reject(response.statusText);
+  })
+    .then((payload) => {
+      res.json({
+        message: 'here you go',
+        success: true,
+        payload: payload.results
+      });
+    })
+    .catch((err) => {
+      if (err) {
+        res.json({
+          message: 'Oh no, it seems an error has occurred',
+          success: false,
+          err
+        });
+      }
+    });
 });
 
 // POST (create)
