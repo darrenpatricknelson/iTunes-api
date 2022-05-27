@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import FavButton from './FavButton.js';
 
 export default function Results(props) {
-  const [favorite, setFavorite] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
   const addFavourite = (data) => {
-    // console.log(data.artistName);
-    // setFavorite((prev) => !prev);
-    console.log(favorites);
+    // what this function does is check the favorites array
+    // if the array.length is equal to 0, it will add the new media as a favorite
+    if (favorites.length === 0) {
+      setFavorites((prev) => [...prev, data]);
+      return;
+    }
 
-    favorites.forEach((val) => {
-      if (data === val) {
-        console.log('equal');
-      } else {
-        console.log('false');
-        setFavorites((prev) => [...prev, data]);
+    // if the aray.length is not equal to 0,
+    // it will check to see if the new media being add already exists inside of the array
+    // if it does, it will then delete that media
+    // My thinking is, the user cant/ doesnt want 2 sets of the same media in his/her favourite
+    for (var i = 0; i < favorites.length; i++) {
+      if (favorites[i] === data) {
+        favorites.splice(i, 1);
+        return;
       }
-    });
+    }
+
+    // if both the above checks are passed
+    // the new media will simply be added
+    setFavorites((prev) => [...prev, data]);
   };
 
-  // useEffect(() => {
-  //   console.log(favorites);
-  // }, [favorites]);
+  useEffect(() => {
+    console.log({ favorites });
+  }, [favorites]);
 
   // create values from props
   const results = props.values;
@@ -51,14 +60,8 @@ export default function Results(props) {
               >
                 View artist
               </Button>
-              <button className="starButton" onClick={() => addFavourite(val)}>
-                {/* {favorite ? (
-                  <i className="fa-solid fa-star starLogo starLogoTrue"></i>
-                ) : (
-                  <i className="fa-solid fa-star starLogo"></i>
-                )} */}
-                <i className="fa-solid fa-star starLogo"></i>
-              </button>
+
+              <FavButton data={val} methods={addFavourite} />
             </Card.Body>
           </Card>
         );
@@ -66,27 +69,3 @@ export default function Results(props) {
     </>
   );
 }
-
-/* 
-! TODO
-Favorites function in parent:
-if array === 0 ...
-for const fav of favs ...
-setFav(prev => [...prev, data])
-
-fav button:
-create comp
-control state
-true = yellow 
-false = black
-run function in parent
-export default funct (prop) => {
-  const val = props.val
-  const [state, setState] = useState(false)
-  const handleClick = () => {
-    setState(prev => !prev)
-    parentFunction(val)
-  }
-}
-
-*/

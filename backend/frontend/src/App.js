@@ -37,7 +37,6 @@ function App() {
     setIsLoading(true);
     setIsLoaded(false);
     setError(false);
-    // setData(null);
 
     // replace white spaces in the search with '+' and lowercase
     const searchResult = inputForm.replace(/\s/g, '+').toLowerCase();
@@ -82,10 +81,7 @@ function App() {
           {isLoaded && <Results values={data} />}
         </div>
       </div>
-      {/* <div className="favorites">
-        <Favorites />
-        Favorites
-      </div> */}
+      <Favorites />
     </div>
   );
 }

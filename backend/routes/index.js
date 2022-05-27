@@ -38,7 +38,7 @@ router.get('/:term&:media', async (req, res) => {
   const term = req.params.term;
   const media = req.params.media;
 
-  const url = `https://itunes.apple.com/search?term=${term}&limit=25&entity=${media}`;
+  const url = `https://itunes.apple.com/search?term=${term}&limit=28&entity=${media}`;
   const response = await axios.get(url);
   return new Promise(async (resolve, reject) => {
     if (response.statusText) {
