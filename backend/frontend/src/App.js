@@ -24,12 +24,12 @@ function App() {
   // create hooks
   const [inputForm, setInputForm] = useState(''); // value from the input field
   const [optionsForm, setOptionsForm] = useState(''); // value from the options field
-  const [error, setError] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null); // for the error message
+  const [errorMessage, setErrorMessage] = useState(''); // the error message
+  const [isLoading, setIsLoading] = useState(false); // while the backend searchs the api
+  const [isLoaded, setIsLoaded] = useState(false); // after the backends search is complete
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null); // The data returned from the api search
 
   // results
 
