@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assests/App.css';
 
 export default function Favorites(props) {
@@ -9,11 +9,24 @@ export default function Favorites(props) {
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
+
+  // useEffect((
+  //   return updatedFavs = [...favorites]
+  // ), [favorites])
   return (
     <div
       className={open ? 'favoritesContaineropen' : 'favoritesContainerClosed'}
     >
-      <button onClick={handleClick}>hello</button>
+      <button onClick={handleClick}>Favorites</button>
+      {favorites.map((val) => {
+        return (
+          <div className={open ? 'visualContent' : 'hiddenContent'}>
+            <h3>{val.artistName}</h3>
+            <p>{val.trackCensoredName}</p>
+            <a href={val.artistViewUrl}>{val.artistViewUrl}</a>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -14,9 +14,9 @@ export default function FavButton(props) {
   return (
     <button className="starButton" onClick={() => handleClick(data)}>
       {state ? (
-        <i className="fa-solid fa-star starLogo starLogoTrue"></i>
+        <i className="fa-solid fa-heart heartLogo heartLogoTrue"></i>
       ) : (
-        <i className="fa-solid fa-star starLogo"></i>
+        <i className="fa-solid fa-heart heartLogo"></i>
       )}
     </button>
   );

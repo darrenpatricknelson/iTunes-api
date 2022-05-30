@@ -82,7 +82,7 @@ function App() {
           {isLoading && <p>Loading...</p>}
           {isLoaded && (
             <Results
-              values={{ data: data, favorites: favorites }}
+              values={{ results: data, favorites: favorites }}
               methods={{ setFavorites: setFavorites }}
             />
           )}

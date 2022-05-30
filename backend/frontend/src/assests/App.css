@@ -42,31 +42,42 @@ Form {
   background-color: transparent;
 }
 
-.starLogo:hover {
-  color: rgba(255, 255, 0, 0.5);
+.heartLogo:hover {
+  color: rgba(255, 0, 0, 0.5);
 }
 
-.starLogoTrue {
-  color: yellow;
+.heartLogoTrue {
+  color: red;
 }
 
 /* favorites */
 .favoritesContaineropen {
+  min-height: 100vh;
   position: absolute;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 400px;
   border: 1px solid red;
   transition-timing-function: ease-out;
+  background-color: grey;
 }
 
 .favoritesContainerClosed {
   position: absolute;
   top: 0;
   right: 0;
-  width: 50px;
+  width: 100px;
   border: 1px solid red;
   transition-timing-function: ease-in;
+}
+.visualContent {
+  margin: 20px;
+  border-top: 2px solid black;
+  color: #fff;
+  font-size: 14px;
+}
+.hiddenContent {
+  display: none;
 }
 
 /* form error validation */
