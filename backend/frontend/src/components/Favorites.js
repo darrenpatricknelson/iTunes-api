@@ -10,20 +10,17 @@ export default function Favorites(props) {
     setOpen((prev) => !prev);
   };
 
-  // useEffect((
-  //   return updatedFavs = [...favorites]
-  // ), [favorites])
   return (
     <div
       className={open ? 'favoritesContaineropen' : 'favoritesContainerClosed'}
     >
       <button onClick={handleClick}>Favorites</button>
-      {favorites.map((val) => {
+      {favorites.map((val, idx) => {
         return (
-          <div className={open ? 'visualContent' : 'hiddenContent'}>
+          <div key={idx} className={open ? 'visualContent' : 'hiddenContent'}>
             <h3>{val.artistName}</h3>
             <p>{val.trackCensoredName}</p>
-            <a href={val.artistViewUrl}>{val.artistViewUrl}</a>
+            <a href={val.artistViewUrl}>View artist</a>
           </div>
         );
       })}
