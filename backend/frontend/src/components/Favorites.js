@@ -12,7 +12,7 @@ export default function Favorites(props) {
 
   return (
     <div
-      className={open ? 'favoritesContaineropen' : 'favoritesContainerClosed'}
+      className={`favorites ${open ? 'favoritesContaineropen' : 'favoritesContainerClosed'}`}
     >
       <button onClick={handleClick}>Favorites</button>
       {favorites.map((val, idx) => {
