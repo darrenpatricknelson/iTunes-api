@@ -4,7 +4,9 @@ import Card from 'react-bootstrap/Card';
 import FavButton from './FavButton.js';
 
 export default function Results(props) {
-  const [favorites, setFavorites] = useState([]);
+  // create values from props
+  const { results, favorites } = props.values;
+  const { setFavorites } = props.methods;
 
   const addFavourite = (data) => {
     // what this function does is check the favorites array
@@ -29,13 +31,6 @@ export default function Results(props) {
     // the new media will simply be added
     setFavorites((prev) => [...prev, data]);
   };
-
-  useEffect(() => {
-    console.log({ favorites });
-  }, [favorites]);
-
-  // create values from props
-  const results = props.values;
 
   return (
     <>

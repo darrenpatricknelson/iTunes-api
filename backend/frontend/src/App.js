@@ -29,6 +29,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false); // while the backend searchs the api
   const [isLoaded, setIsLoaded] = useState(false); // after the backends search is complete
 
+  const [favorites, setFavorites] = useState([]); // State for the results and favorites tab
+
   const [data, setData] = useState(null); // The data returned from the api search
 
   // results
@@ -78,10 +80,18 @@ function App() {
         <div className="results">
           {error && <h3>{errorMessage}</h3>}
           {isLoading && <p>Loading...</p>}
-          {isLoaded && <Results values={data} />}
+          {isLoaded && (
+            <Results
+              values={{ data: data, favorites: favorites }}
+              methods={{ setFavorites: setFavorites }}
+            />
+          )}
         </div>
       </div>
-      <Favorites />
+      <Favorites
+        values={{ favorites: favorites }}
+        methods={{ setFavorites: setFavorites }}
+      />
     </div>
   );
 }

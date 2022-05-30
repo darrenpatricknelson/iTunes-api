@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../assests/App.css';
 
-export default function Favorites() {
+export default function Favorites(props) {
+  const { favorites } = props.values;
+  const { setFavorites } = props.methods;
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
