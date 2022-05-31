@@ -7,8 +7,6 @@ const fs = require('fs');
 const PORT = require('./config/config.js').PORT;
 const helmet = require('helmet');
 const path = require('path');
-// var http = require('http');
-// var client = http.createClient(PORT, 'itunes.apple.com');
 
 // Init express
 const app = express();

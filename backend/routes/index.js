@@ -25,12 +25,14 @@ const fetchAPI = async (term, media) => {
   });
 };
 
-// GET (read)
+// Get request
 router.get('/fetch/:term&:media', (req, res) => {
   //   get info from the users from
   const term = req.params.term;
   const media = req.params.media;
 
+  // call teh above function
+  // send payload back to the frontend
   fetchAPI(term, media)
     .then((payload) => {
       res.json({

@@ -3,10 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import FavButton from './FavButton.js';
 
+// this component will display the results of the api search
 export default function Results(props) {
-  // create values from props
+  // deconstruct props
   const { results } = props.values;
 
+  // renders a card for each media returned by the api search
+  // that card will display certain information
   return (
     <>
       {results.map((val, idx) => {

@@ -4,6 +4,7 @@ import Favorites from './components/Favorites.js';
 import Results from './components/Results.js';
 import SearchForm from './components/SearchForm.js';
 
+// build a fetch fucntion that runs through the backend
 export const searchItunesAPI = async (searchResult, optionsForm) => {
   const response = await fetch(`/api/fetch/${searchResult}&${optionsForm}`);
   return new Promise(async (resolve, reject) => {
@@ -20,6 +21,7 @@ export const searchItunesAPI = async (searchResult, optionsForm) => {
   });
 };
 
+// app component
 function App() {
   // create hooks
   const [inputForm, setInputForm] = useState(''); // value from the input field
@@ -46,6 +48,7 @@ function App() {
     searchItunesAPI(searchResult, optionsForm).then((data) => {
       const payload = data.payload;
 
+      // depending on the results... set state
       if (!data.success || payload.length === 0) {
         setIsLoading(false);
         setError(true);
@@ -61,6 +64,7 @@ function App() {
     });
   };
 
+  // render results
   return (
     <div className="App">
       <div className="formAndResults">

@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+// this component is the search form
+
+// the following array is an array of titles that will be used for the media dropdown
 const media = [
   {
     title: 'Movie',
@@ -42,7 +45,9 @@ const media = [
   }
 ];
 
+// component
 function SearchForm(props) {
+  // deconstruct props
   const { inputForm, optionsForm } = props.values;
   const { submitForm, setInputForm, setOptionsForm } = props.methods;
 
@@ -71,6 +76,7 @@ function SearchForm(props) {
     submitForm();
   };
 
+  // renders accordingly
   return (
     <Form>
       {/* input field for the name of the artist, actor or author */}
@@ -111,4 +117,5 @@ function SearchForm(props) {
   );
 }
 
+// export component
 export default SearchForm;
