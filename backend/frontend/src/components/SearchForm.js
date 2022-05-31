@@ -77,7 +77,7 @@ function SearchForm(props) {
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control
           type="text"
-          placeholder="Enter your search item"
+          placeholder="Enter your the name of the artist your search for..."
           value={inputForm}
           onChange={(e) => {
             setInputForm(e.target.value);

@@ -1,8 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { searchItunesAPI } from '../src/App.js';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+// this test is to test a truth return
+test('the response is okay and returns data', async () => {
+  return expect(searchItunesAPI('drake', 'song')).resolves.toBeTruthy;
 });

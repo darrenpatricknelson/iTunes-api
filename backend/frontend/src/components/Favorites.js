@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import '../assests/App.css';
 
 export default function Favorites(props) {
@@ -10,15 +11,39 @@ export default function Favorites(props) {
     setOpen((prev) => !prev);
   };
 
+  const isFav = (media, favorites) => favorites.includes(media);
+
+  const removeFav = (val) => {
+    if (isFav(val, favorites)) {
+      const withRemoved = favorites.filter((favorite) => {
+        return favorite !== val;
+      });
+      setFavorites(withRemoved);
+    }
+  };
+
   return (
     <div
-      className={`favorites ${open ? 'favoritesContaineropen' : 'favoritesContainerClosed'}`}
+      className={`favorites ${
+        open ? 'favoritesContaineropen' : 'favoritesContainerClosed'
+      }`}
     >
-      <button onClick={handleClick}>Favorites</button>
+      <Button variant="danger" onClick={handleClick}>
+        Favorites ({favorites.length})
+      </Button>
       {favorites.map((val, idx) => {
         return (
           <div key={idx} className={open ? 'visualContent' : 'hiddenContent'}>
-            <h3>{val.artistName}</h3>
+            <div className="favContainer">
+              <h3>{val.artistName}</h3>
+              <button
+                title="Remove favorite"
+                className="starButton"
+                onClick={() => removeFav(val)}
+              >
+                <i className="fa-solid fa-heart heartLogo heartLogoTrue"></i>
+              </button>
+            </div>
             <p>{val.trackCensoredName}</p>
             <a href={val.artistViewUrl}>View artist</a>
           </div>
@@ -27,11 +52,3 @@ export default function Favorites(props) {
     </div>
   );
 }
-
-/* 
-! TODO
-Build out the favorites side tab
-add animation the opening and closing of the tab
-add a button to delete a media from the favorites
-
-*/

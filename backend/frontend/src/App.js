@@ -5,7 +5,7 @@ import Results from './components/Results.js';
 import SearchForm from './components/SearchForm.js';
 
 export const searchItunesAPI = async (searchResult, optionsForm) => {
-  const response = await fetch(`/api/${searchResult}&${optionsForm}`);
+  const response = await fetch(`/api/fetch/${searchResult}&${optionsForm}`);
   return new Promise(async (resolve, reject) => {
     if (response.ok) {
       try {
@@ -44,9 +44,9 @@ function App() {
     const searchResult = inputForm.replace(/\s/g, '+').toLowerCase();
 
     searchItunesAPI(searchResult, optionsForm).then((data) => {
-      // console.log(data);
       const payload = data.payload;
-      if (!data.success) {
+
+      if (!data.success || payload.length === 0) {
         setIsLoading(false);
         setError(true);
         setErrorMessage(
@@ -77,9 +77,9 @@ function App() {
             }}
           />
         </div>
+        {error && <h3>{errorMessage}</h3>}
+        {isLoading && <p>Loading...</p>}
         <div className="results">
-          {error && <h3>{errorMessage}</h3>}
-          {isLoading && <p>Loading...</p>}
           {isLoaded && (
             <Results
               values={{ results: data, favorites: favorites }}

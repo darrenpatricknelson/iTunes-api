@@ -54,7 +54,6 @@ Form {
 
 /* favorites */
 .favorites {
-  min-height: 100vh;
   position: absolute;
   top: 0;
   right: 0;
@@ -62,22 +61,25 @@ Form {
 }
 
 .favoritesContaineropen {
+  min-height: 100vh;
   width: 400px;
   border: 1px solid black;
   transition-timing-function: ease-out;
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.7);
   padding: 15px;
 }
 
 .favoritesContainerClosed {
-  width: 100px;
+  width: 150px;
   transition-timing-function: ease-in;
 }
 .visualContent {
-  margin: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid black;
+  margin: 20px 10px;
+  padding: 10px;
+  border-radius: 1rem;
+  border-bottom: 3px solid black;
   color: #fff;
+  background-color: grey;
   font-size: 14px;
 }
 
@@ -94,6 +96,16 @@ Form {
 
 .hiddenContent {
   display: none;
+}
+
+/* favorite container -  has the title of media and a button to remove favorite */
+.favContainer {
+  display: flex;
+  font-size: 17px;
+}
+
+.favContainer button {
+  margin: 0 5px 5px;
 }
 
 /* form error validation */

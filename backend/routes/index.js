@@ -1,45 +1,15 @@
 // require modules
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 const axios = require('axios');
 
-/* 
-! If needed:
-a function to generate a random ID
-*/
-const generateID = () => {
-  return Math.floor(Math.random() * Date.now());
-};
-
-// create global variable of the data
-const data = JSON.parse(fs.readFileSync('./db.json'));
-
-// create a writeFileSync function
-const writeFile = (content) => {
-  fs.writeFileSync('./db.json', JSON.stringify(content, null, 2), (err) => {
-    if (err) {
-      return res.send('Write a message here', err);
-    }
-  });
-};
-
-/* 
-! CRUD methods:
-- Create (POST)
-- Read (GET)
-- Update (PUT)
-- Delete (DELETE)
-*/
-
-// GET (read)
-router.get('/:term&:media', async (req, res) => {
-  //   send a response to the user
-  const term = req.params.term;
-  const media = req.params.media;
-
+const fetchAPI = async (term, media) => {
+  // create URL
   const url = `https://itunes.apple.com/search?term=${term}&limit=28&entity=${media}`;
+  // use axios to do a fetch
   const response = await axios.get(url);
+
+  // return a prmomise
   return new Promise(async (resolve, reject) => {
     if (response.statusText) {
       try {
@@ -52,7 +22,16 @@ router.get('/:term&:media', async (req, res) => {
     }
 
     reject(response.statusText);
-  })
+  });
+};
+
+// GET (read)
+router.get('/fetch/:term&:media', (req, res) => {
+  //   get info from the users from
+  const term = req.params.term;
+  const media = req.params.media;
+
+  fetchAPI(term, media)
     .then((payload) => {
       res.json({
         message: 'here you go',
@@ -71,87 +50,5 @@ router.get('/:term&:media', async (req, res) => {
     });
 });
 
-// POST (create)
-router.post('/create', (req, res) => {
-  const id = generateID();
-  const newObject = Object.assign({ id }, req.body);
-  data.push(newObject);
-
-  /* 
-  ! fs.writeFileSync
-    */
-  writeFile(data);
-
-  //   send a response to the user
-  res.json({
-    message: 'Write a message',
-    success: true,
-    data
-  });
-});
-
-// PUT (update)
-router.put('/update/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const newObject = Object.assign({ id }, req.body);
-
-  //   loop of data array to find existing object
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].id === id) {
-      data[i] = newObject;
-    }
-  }
-
-  /* 
-  ! fs.writeFileSync
-    */
-  writeFile(data);
-
-  //   send a response to the user
-  res.json({
-    message: 'Write a message',
-    success: true,
-    data
-  });
-});
-
-// DELETE (delete)
-router.delete('/delete/:id', (req, res) => {
-  const id = Number(req.params.id);
-
-  //   loop of data array to find existing object
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].id === id) {
-      //   delete the index from the array using splice
-      data.splice(i, 1);
-    }
-  }
-
-  /* 
-  ! fs.writeFileSync
-    */
-  writeFile(data);
-
-  //   send a response to the user
-  res.json({
-    message: 'Write a message',
-    success: true,
-    data
-  });
-});
-
 // export module
 module.exports = router;
-
-/* 
-! TODO:
-
-Clean up backend 
-Might only need 1 get function
-Don't need to POST, PUT and DELETE...
-Don't need to read any files
-DOn't need to generate random ID
-Clean up comments
-Add Helmet
-
-*/
