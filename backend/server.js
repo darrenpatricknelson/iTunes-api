@@ -6,6 +6,7 @@ const routes = require('./routes');
 const fs = require('fs');
 const PORT = require('./config/config.js').PORT;
 const helmet = require('helmet');
+const path = require('path');
 // var http = require('http');
 // var client = http.createClient(PORT, 'itunes.apple.com');
 
@@ -25,6 +26,16 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/api', routes);
+
+// serve static assest if in production
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('frontend/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 // listen on port
 app.listen(PORT, () => {
