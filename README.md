@@ -62,4 +62,13 @@ iTunes music api built using Express for backend and React for frontend
 
 ###### Link to the deployed version of the app
 
--
+- I could use some help pushing to Heroku. I've asked for help in a previous build where deploying to heroku was optional and the moderator said that it was an optional task so I did not need to do it. I was not given any help. Now it is not an optional task, it is compulsory and I am still having issues with deploying to heroku. I get this error:
+
+      "
+
+      ! [remote rejected] main -> main (pre-receive hook declined)
+      error: failed to push some refs to 'https://git.heroku.com/itunes-api-fullstack.git'
+
+      "
+
+Moderator please help...
